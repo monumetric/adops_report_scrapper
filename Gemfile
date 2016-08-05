@@ -4,3 +4,12 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'byebug'
+
+gem 'httpclient'
+gem 'kaminari'
+gem 'rest-client'
+gem 'capybara'
+gem 'poltergeist', require: 'phantomjs/poltergeist'
+gem 'phantomjs'
+gem 'http-cookie'
+gem 'rubyzip'
