@@ -7,3 +7,7 @@
 /pkg/
 /spec/reports/
 /tmp/
+/secret.yml
+/tmp/
+!/tmp/.keep
+/.byebug_history
