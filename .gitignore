@@ -12,3 +12,5 @@
 !/tmp/.keep
 /.byebug_history
 /capybara-*.png
+/*-oauth2.json
+/discovery.cache

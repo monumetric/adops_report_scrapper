@@ -9,11 +9,11 @@ class BaseClient
   # options: {
   #   :date => (optional) default: yesterday
   # }
-  def initialize(login, secret, options = {})
+  def initialize(login, secret, options = nil)
     @login = login
     @secret = secret
-    @date = options[:date] || Date.today.prev_day
-    @options = options
+    @options = options || {}
+    @date = @options[:date] || Date.today.prev_day
   end
 
   # date: (optional)
