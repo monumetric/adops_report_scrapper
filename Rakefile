@@ -95,6 +95,36 @@ task :criteo do
   save_as_csv :criteo, :criteo
 end
 
+desc 'Collect triplelift data'
+task :triplelift do
+  save_as_csv :triplelift, :triplelift
+end
+
+desc 'Collect conversant data'
+task :conversant do
+  save_as_csv :conversant, :conversant
+end
+
+desc 'Collect liveintent data'
+task :liveintent do
+  save_as_csv :liveintent, :liveintent
+end
+
+desc 'Collect adiply data'
+task :adiply do
+  save_as_csv :adiply, :adiply
+end
+
+desc 'Collect contentad data'
+task :contentad do
+  save_as_csv :contentad, :contentad
+end
+
+desc 'Collect facebookaudience data'
+task :facebookaudience do
+  save_as_csv :facebookaudience, :facebookaudience
+end
+
 def get_yesterdays_file_path(adnetwork)
   "tmp/#{Date.today.prev_day}/#{adnetwork}.csv"
 end
