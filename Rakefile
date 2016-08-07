@@ -6,7 +6,7 @@ require 'date'
 require 'byebug'
 
 desc 'Collect all data'
-task :all => [:tremor, :brightroll, :yellowhammer, :adaptv, :fourninefive, :adx, :revcontent, :gcs, :browsi, :netseer, :sonobi, :openx] do # openx is the most unstable one, last to run
+task :all => [:openx, :tremor, :brightroll, :yellowhammer, :adaptv, :fourninefive, :adx, :revcontent, :gcs, :browsi, :netseer, :sonobi, :nativo, :adsupply, :marfeel, :adsense, :criteo] do # openx is the most unstable one, run it first
   puts '========== You are all set'
 end
 
@@ -68,6 +68,31 @@ end
 desc 'Collect sonobi data'
 task :sonobi do
   save_as_csv :sonobi, :sonobi
+end
+
+desc 'Collect nativo data'
+task :nativo do
+  save_as_csv :nativo, :nativo
+end
+
+desc 'Collect adsupply data'
+task :adsupply do
+  save_as_csv :adsupply, :adsupply
+end
+
+desc 'Collect marfeel data'
+task :marfeel do
+  save_as_csv :marfeel, :marfeel
+end
+
+desc 'Collect adsense data'
+task :adsense do
+  save_as_csv :adsense, :adsense
+end
+
+desc 'Collect criteo data'
+task :criteo do
+  save_as_csv :criteo, :criteo
 end
 
 def get_yesterdays_file_path(adnetwork)

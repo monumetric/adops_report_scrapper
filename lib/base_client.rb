@@ -37,10 +37,6 @@ class BaseClient
     return @data
   end
 
-  def workflow
-    
-  end
-
   def init_client
     Capybara.register_driver :poltergeist do |app|
       Capybara::Poltergeist::Driver.new(app, :phantomjs => Phantomjs.path)
