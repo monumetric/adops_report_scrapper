@@ -6,8 +6,8 @@ require 'date'
 require 'byebug'
 
 desc 'Collect all data'
-task :all => [:tremor, :brightroll, :yellowhammer, :adaptv, :fourninefive] do
-  puts '==========all set'
+task :all => [:tremor, :brightroll, :yellowhammer, :adaptv, :fourninefive, :adx, :revcontent, :gcs, :browsi, :netseer, :sonobi, :openx] do # openx is the most unstable one, last to run
+  puts '========== You are all set'
 end
 
 desc 'Collect tremor data'
