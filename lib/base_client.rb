@@ -48,6 +48,7 @@ class BaseClient
     Capybara.default_max_wait_time = 10
     @client = Capybara::Session.new(:poltergeist)
     @client.driver.browser.js_errors = false
+    @client.driver.resize(1920, 985)
   end
 
   def login

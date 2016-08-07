@@ -12,7 +12,7 @@ class RevcontentClient < BaseClient
     begin
       @client.find :xpath, '//*[contains(text(),"Widgets")]'
     rescue Exception => e
-      raise e, 'Adforge login error'
+      raise e, 'Revcontent login error'
     end
   end
 
