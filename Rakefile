@@ -107,8 +107,7 @@ end
 
 desc 'Collect liveintent data'
 task :liveintent do
-  # todo
-  # save_as_csv :liveintent, :liveintent
+  save_as_csv :liveintent, :liveintent
 end
 
 desc 'Collect adiply data'
