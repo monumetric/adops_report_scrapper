@@ -28,7 +28,7 @@ class BrowsiClient < BaseClient
       endDate: (@date.to_time+86400-1).utc.strftime('%FT%T.999Z')
     }
     @client.visit "https://reports.brow.si/client/app/index.html#/report/home?dateRange=#{URI::encode(date_range_obj.to_json)}"
-    sleep 5
+    sleep 10
   end
 
   def extract_data_from_report

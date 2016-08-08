@@ -6,7 +6,7 @@ require 'date'
 require 'byebug'
 
 desc 'Collect all data'
-task :all => [:openx, :tremor, :brightroll, :yellowhammer, :adaptv, :fourninefive, :adx, :revcontent, :gcs, :browsi, :netseer, :sonobi, :nativo, :adsupply, :marfeel, :adsense, :criteo] do # openx is the most unstable one, run it first
+task :all => [:openx, :tremor, :brightroll, :yellowhammer, :adaptv, :fourninefive, :adx, :revcontent, :gcs, :browsi, :netseer, :sonobi, :nativo, :adsupply, :marfeel, :adsense, :criteo, :triplelift, :conversant, :liveintent, :adiply, :contentad, :facebookaudience] do # openx is the most unstable one, run it first
   puts '========== You are all set'
 end
 
@@ -107,7 +107,8 @@ end
 
 desc 'Collect liveintent data'
 task :liveintent do
-  save_as_csv :liveintent, :liveintent
+  # todo
+  # save_as_csv :liveintent, :liveintent
 end
 
 desc 'Collect adiply data'
@@ -117,12 +118,14 @@ end
 
 desc 'Collect contentad data'
 task :contentad do
-  save_as_csv :contentad, :contentad
+  # todo
+  # save_as_csv :contentad, :contentad
 end
 
 desc 'Collect facebookaudience data'
 task :facebookaudience do
-  save_as_csv :facebookaudience, :facebookaudience
+  # todo
+  # save_as_csv :facebookaudience, :facebookaudience
 end
 
 def get_yesterdays_file_path(adnetwork)
