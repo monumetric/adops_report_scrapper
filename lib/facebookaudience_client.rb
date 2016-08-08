@@ -30,7 +30,6 @@ class FacebookaudienceClient < BaseClient
     @prev_placement = 'All Ad Placements'
     @data = []
     placements.each do |placement|
-      byebug
       request_report placement
       extract_data_from_report placement
     end

@@ -40,6 +40,8 @@ class BrightrollClient < BaseClient
 
   def extract_data_from_report
     rows = @client.find_all :xpath, '//table[1]/*/tr'
+    rows = rows.to_a
+    rows.delete_at 1
     @data = rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
   end
 end

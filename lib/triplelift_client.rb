@@ -30,6 +30,7 @@ class TripleliftClient < BaseClient
   def extract_data(publisher)
     @client.find(:xpath, '//*[@ng-if="publishers.length > 1"]').click
     index = -1 - @publishers.count(publisher)
+    sleep 1
     @client.find_all(:xpath, "//*[text()=\"#{publisher}\"]")[index].click
     @client.find(:xpath, '//*[text()="Reporting"]').click
     @client.find(:xpath, '//*[@model="startDate"]//input').set @date_str
