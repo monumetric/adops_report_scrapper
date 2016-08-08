@@ -118,14 +118,12 @@ end
 
 desc 'Collect contentad data'
 task :contentad do
-  # todo
-  # save_as_csv :contentad, :contentad
+  save_as_csv :contentad, :contentad
 end
 
 desc 'Collect facebookaudience data'
 task :facebookaudience do
-  # todo
-  # save_as_csv :facebookaudience, :facebookaudience
+  save_as_csv :facebookaudience, :facebookaudience
 end
 
 def get_yesterdays_file_path(adnetwork)

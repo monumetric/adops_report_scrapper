@@ -6,9 +6,8 @@
 /doc/
 /pkg/
 /spec/reports/
-/tmp/
 /secret.yml
-/tmp/
+/tmp/*
 !/tmp/.keep
 /.byebug_history
 /capybara-*.png
