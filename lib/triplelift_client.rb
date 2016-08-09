@@ -33,11 +33,17 @@ class TripleliftClient < BaseClient
     sleep 1
     @client.find_all(:xpath, "//*[text()=\"#{publisher}\"]")[index].click
     @client.find(:xpath, '//*[text()="Reporting"]').click
+    sleep 2
+
+    return if @client.find_all(:xpath, '//*[text()="No data available for selected date range"]').count > 0
+
     @client.find(:xpath, '//*[@model="startDate"]//input').set @date_str
+    sleep 1
     @client.find(:xpath, '//*[@model="endDate"]//input').set @date_str
+    sleep 1
     @client.find(:xpath, '//button[../../div[contains(text(),"Group by")]]').click
     @client.find(:xpath, '//*[text()="Date and Placement"]').click
-    sleep 3
+    sleep 5
 
     return if @client.find_all(:xpath, '//*[text()="No data available for selected date range"]').count > 0
 
