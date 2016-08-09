@@ -44,9 +44,7 @@ class OpenxClient < BaseClient
         retry unless (tries -= 1).zero?
       end
     
-      if @client.find_all(:xpath, "//a[text()=\"#{REPORT_NAME}\"]").count > 0
-        next
-      end
+      next if @client.find_all(:xpath, "//a[text()=\"#{REPORT_NAME}\"]").count > 0
 
       # create report if not exist
       @client.find(:xpath, '//*[contains(text(),"Create Report")]').click
