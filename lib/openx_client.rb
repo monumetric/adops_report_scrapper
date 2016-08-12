@@ -35,7 +35,35 @@ class OpenxClient < BaseClient
     rescue Exception => e
       retry unless (tries -= 1).zero?
     end
+
+    create_report_if_not_exist
     
+    @client.within_frame @client.find(:css, '#report_frame') do
+      @client.find(:xpath, "//a[text()=\"#{REPORT_NAME}\"]").click
+
+      begin
+        tries ||= 6
+        @client.find(:css, '.myFrame')
+      rescue Exception => e
+        retry unless (tries -= 1).zero?
+      end
+      
+      @client.within_frame @client.find(:css, '.myFrame') do
+        begin
+          tries ||= 18
+          @client.find(:xpath, '//option[text()="500"]')
+        rescue Exception => e
+          retry unless (tries -= 1).zero?
+        end
+        
+        @client.find(:xpath, '//option[text()="500"]').select_option
+        extract_data_from_report
+      end
+    end
+    sleep 5
+  end
+
+  def create_report_if_not_exist
     @client.within_frame @client.find(:css, '#report_frame') do
       begin
         tries ||= 6
@@ -44,9 +72,7 @@ class OpenxClient < BaseClient
         retry unless (tries -= 1).zero?
       end
     
-      if @client.find_all(:xpath, "//a[text()=\"#{REPORT_NAME}\"]").count > 0
-        next
-      end
+      return if @client.find_all(:xpath, "//a[text()=\"#{REPORT_NAME}\"]").count > 0
 
       # create report if not exist
       @client.find(:xpath, '//*[contains(text(),"Create Report")]').click
@@ -106,30 +132,6 @@ class OpenxClient < BaseClient
       end
       sleep 2
     end
-
-    @client.within_frame @client.find(:css, '#report_frame') do
-      @client.find(:xpath, "//a[text()=\"#{REPORT_NAME}\"]").click
-
-      begin
-        tries ||= 6
-        @client.find(:css, '.myFrame')
-      rescue Exception => e
-        retry unless (tries -= 1).zero?
-      end
-      
-      @client.within_frame @client.find(:css, '.myFrame') do
-        begin
-          tries ||= 18
-          @client.find(:xpath, '//option[text()="500"]')
-        rescue Exception => e
-          retry unless (tries -= 1).zero?
-        end
-        
-        @client.find(:xpath, '//option[text()="500"]').select_option
-        extract_data_from_report
-      end
-    end
-    sleep 5
   end
 
   def extract_data_from_report
