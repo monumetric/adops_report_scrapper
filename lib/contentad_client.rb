@@ -1,6 +1,8 @@
 require 'date'
 require_relative 'base_client'
 
+# please ensure that all live widgets have distinct name
+
 class ContentadClient < BaseClient
   def init_client
     Capybara.register_driver :poltergeist do |app|
