@@ -1,6 +1,8 @@
 require 'date'
 require_relative 'base_client'
 
+# gcs sometimes doesn't update data in 24 hours
+
 class GcsClient < BaseClient
   private
 
