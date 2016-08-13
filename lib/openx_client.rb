@@ -65,72 +65,76 @@ class OpenxClient < BaseClient
 
   def create_report_if_not_exist
     @client.within_frame @client.find(:css, '#report_frame') do
+      ready_elem = nil
       begin
         tries ||= 6
-        @client.find(:xpath, '//*[text()="Preconfigured Reports"]')
+        ready_elem = @client.find(:xpath, '//*[text()="Preconfigured Reports"]')
       rescue Exception => e
         retry unless (tries -= 1).zero?
       end
+
+      fail 'openx report page not ready' unless ready_elem
     
-      return if @client.find_all(:xpath, "//a[text()=\"#{REPORT_NAME}\"]").count > 0
+      if @client.find_all(:xpath, "//a[text()=\"#{REPORT_NAME}\"]").count == 0
 
-      # create report if not exist
-      @client.find(:xpath, '//*[contains(text(),"Create Report")]').click
-      @client.find(:xpath, '//li/*[text()="Ad Server Report"]').click
-
-      begin
-        tries ||= 6
-        @client.find(:css, '.myFrame')
-      rescue Exception => e
-        retry unless (tries -= 1).zero?
-      end
-      
-      @client.within_frame @client.find(:css, '.myFrame') do
-
-        @client.find(:xpath, '//*[text()="Last Seven Days"]').click
-        @client.find(:xpath, '//*[text()="Yesterday"]').click
-        @client.find(:xpath, '//*[@value="Next"]').trigger('click')
-        sleep 2
-
-        @client.find(:xpath, '//*[text()="Ad Unit"]').click
-        @client.find(:xpath, '//img[../../td//*[text()="User"]]').click
-        @client.find(:xpath, '//*[text()="Country"]').click
-        @client.find(:xpath, '//*[text()="Device Category"]').click
-        @client.find(:xpath, '//*[@value="Next"]').trigger('click')
-        sleep 2
-        
-        @client.find(:xpath, '//*[text()="Paid Impressions"]').click
-        @client.find(:xpath, '//*[text()="Impressions Delivered"]').click
-        @client.find(:xpath, '//*[text()="Ad Requests"]').click
-        @client.find(:xpath, '//img[../../td//*[text()="Revenue"]]').click
-        @client.find(:xpath, '//*[text()="Publisher Revenue"]').click
-        @client.find(:xpath, '//img[../../td//*[text()="Clicks"]]').click
-        @client.find(:xpath, '//div[text()="Clicks"]').click
-        @client.find(:xpath, '//*[@value="Next"]').trigger('click')
-        sleep 2
-
-        @client.find(:xpath, '//*[@value="Save"]').trigger('click')
+        # create report if not exist
+        @client.find(:xpath, '//*[contains(text(),"Create Report")]').click
+        @client.find(:xpath, '//li/*[text()="Ad Server Report"]').click
 
         begin
           tries ||= 6
-          @client.find(:xpath, '//*[text()="Save Report"]')
+          @client.find(:css, '.myFrame')
         rescue Exception => e
           retry unless (tries -= 1).zero?
         end
         
-        @client.fill_in 'saveAsReportName', :with => REPORT_NAME
-        @client.find(:xpath, '//*[@value="Save Report"]').trigger('click')
+        @client.within_frame @client.find(:css, '.myFrame') do
 
-        begin
-          tries ||= 6
-          @client.find(:xpath, '//*[text()="Report Saved"]')
-        rescue Exception => e
-          retry unless (tries -= 1).zero?
+          @client.find(:xpath, '//*[text()="Last Seven Days"]').click
+          @client.find(:xpath, '//*[text()="Yesterday"]').click
+          @client.find(:xpath, '//*[@value="Next"]').trigger('click')
+          sleep 2
+
+          @client.find(:xpath, '//*[text()="Ad Unit"]').click
+          @client.find(:xpath, '//img[../../td//*[text()="User"]]').click
+          @client.find(:xpath, '//*[text()="Country"]').click
+          @client.find(:xpath, '//*[text()="Device Category"]').click
+          @client.find(:xpath, '//*[@value="Next"]').trigger('click')
+          sleep 2
+          
+          @client.find(:xpath, '//*[text()="Paid Impressions"]').click
+          @client.find(:xpath, '//*[text()="Impressions Delivered"]').click
+          @client.find(:xpath, '//*[text()="Ad Requests"]').click
+          @client.find(:xpath, '//img[../../td//*[text()="Revenue"]]').click
+          @client.find(:xpath, '//*[text()="Publisher Revenue"]').click
+          @client.find(:xpath, '//img[../../td//*[text()="Clicks"]]').click
+          @client.find(:xpath, '//div[text()="Clicks"]').click
+          @client.find(:xpath, '//*[@value="Next"]').trigger('click')
+          sleep 2
+
+          @client.find(:xpath, '//*[@value="Save"]').trigger('click')
+
+          begin
+            tries ||= 6
+            @client.find(:xpath, '//*[text()="Save Report"]')
+          rescue Exception => e
+            retry unless (tries -= 1).zero?
+          end
+          
+          @client.fill_in 'saveAsReportName', :with => REPORT_NAME
+          @client.find(:xpath, '//*[@value="Save Report"]').trigger('click')
+
+          begin
+            tries ||= 6
+            @client.find(:xpath, '//*[text()="Report Saved"]')
+          rescue Exception => e
+            retry unless (tries -= 1).zero?
+          end
+          
+          @client.find(:xpath, '//*[text()="Back to My Reports"]').trigger('click')
         end
-        
-        @client.find(:xpath, '//*[text()="Back to My Reports"]').trigger('click')
+        sleep 2
       end
-      sleep 2
     end
   end
 
