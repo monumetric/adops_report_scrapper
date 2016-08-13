@@ -43,7 +43,7 @@ class TripleliftClient < BaseClient
     sleep 1
     @client.find(:xpath, '//button[../../div[contains(text(),"Group by")]]').click
     @client.find(:xpath, '//*[text()="Date and Placement"]').click
-    sleep 5
+    wait_for_spin
 
     return if @client.find_all(:xpath, '//*[text()="No data available for selected date range"]').count > 0
 
@@ -56,5 +56,17 @@ class TripleliftClient < BaseClient
       @data << n_header
     end
     @data += rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
+  end
+
+  def wait_for_spin
+    30.times do |_i| # wait 5 min
+      begin
+        @client.find(:css, '.spinner')
+      rescue Exception => e
+        break
+      end
+      sleep 5
+    end
+    sleep 2
   end
 end

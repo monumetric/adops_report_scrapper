@@ -152,7 +152,7 @@ class OpenxClient < BaseClient
         n_header = header.find_css('td,th').map { |td| td.visible_text }
         @data << n_header
       end
-      @data += rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
+      @data += rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }.reject { |row| row[0] == 'Total' }
       pagee = @client.find(:xpath, '//*[contains(text(),"Showing rows")]').text.match(/-(\d+) of (\d+)\./).captures
       break if pagee[0] == pagee[1]
       @client.find_all(:css, '#paginationNext').first.trigger('click')

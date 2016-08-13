@@ -47,6 +47,6 @@ class SpringserveClient < BaseClient
 
   def extract_data_from_report
     rows = @client.find_all :xpath, '//table[1]/*/tr'
-    @data = rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
+    @data = rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }.reject { |row| row[0] == 'Total' }
   end
 end
