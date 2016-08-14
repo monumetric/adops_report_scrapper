@@ -25,7 +25,9 @@ class NativoClient < BaseClient
     @client.click_link 'Reports'
     @client.click_link 'Marketplace Campaigns'
 
+    sleep 1
     @client.find(:css, '.date-range').click
+    sleep 1
     @client.find(:xpath, '//*[text()="Yesterday"]').click
 
     @client.check 'Publisher'
