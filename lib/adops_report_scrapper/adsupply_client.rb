@@ -2,7 +2,7 @@ require 'date'
 require_relative 'base_client'
 require 'rest-client'
 
-class AdsupplyClient < BaseClient
+class AdopsReportScrapper::AdsupplyClient < AdopsReportScrapper::BaseClient
   def init_client
   end
 

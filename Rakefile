@@ -2,6 +2,7 @@ require 'bundler/gem_tasks'
 require 'yaml'
 require 'csv'
 require 'date'
+require 'adops_report_scrapper'
 
 require 'byebug'
 
@@ -144,9 +145,8 @@ def save_as_csv(adnet, scrapper) # adnet and scrapper are both sym
     return
   end
   puts "========== working on #{adnet}"
-  require_relative "lib/#{scrapper}_client"
   cred = YAML.load_file('secret.yml')[adnet.to_s]
-  scrapper_client_klass = Object.const_get "#{scrapper.capitalize}Client"
-  data = scrapper_client_klass.new(cred['login'], cred['secret'], cred['options']).get_data
+  data = AdopsReportScrapper.get_scrapper(adnet, cred['login'], cred['secret'], cred['options']).get_data
+  byebug
   write_csv(adnet, data)
 end

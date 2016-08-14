@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class FacebookaudienceClient < BaseClient
+class AdopsReportScrapper::FacebookaudienceClient < AdopsReportScrapper::BaseClient
   private
 
   def init_client

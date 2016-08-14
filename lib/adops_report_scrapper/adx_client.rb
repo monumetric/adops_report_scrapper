@@ -8,7 +8,7 @@ require 'google/api_client/auth/installed_app'
 require 'csv'
 
 # require option with network_id to be passed into constructor
-class AdxClient < BaseClient
+class AdopsReportScrapper::AdxClient < AdopsReportScrapper::BaseClient
   API_NAME = 'adexchangeseller'
   API_VERSION = 'v2.0'
   CREDENTIAL_STORE_FILE = "#{API_NAME}-oauth2.json"

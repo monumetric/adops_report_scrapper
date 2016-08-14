@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class NativoClient < BaseClient
+class AdopsReportScrapper::NativoClient < AdopsReportScrapper::BaseClient
   private
 
   def login

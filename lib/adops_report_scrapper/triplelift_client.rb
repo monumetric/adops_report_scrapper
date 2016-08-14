@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class TripleliftClient < BaseClient
+class AdopsReportScrapper::TripleliftClient < AdopsReportScrapper::BaseClient
   private
 
   def login

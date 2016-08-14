@@ -3,7 +3,7 @@ require_relative 'base_client'
 
 # please ensure that all live widgets have distinct name
 
-class ContentadClient < BaseClient
+class AdopsReportScrapper::ContentadClient < AdopsReportScrapper::BaseClient
   def init_client
     Capybara.register_driver :poltergeist do |app|
       Capybara::Poltergeist::Driver.new(app, :phantomjs => Phantomjs.path)

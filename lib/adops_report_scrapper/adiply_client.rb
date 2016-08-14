@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class AdiplyClient < BaseClient
+class AdopsReportScrapper::AdiplyClient < AdopsReportScrapper::BaseClient
   private
 
   def login

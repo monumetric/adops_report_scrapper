@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class BrightrollClient < BaseClient
+class AdopsReportScrapper::BrightrollClient < AdopsReportScrapper::BaseClient
   private
 
   def login

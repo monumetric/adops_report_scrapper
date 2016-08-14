@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class TremorClient < BaseClient
+class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
   private
 
   def login

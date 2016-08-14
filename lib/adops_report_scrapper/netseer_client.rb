@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class NetseerClient < BaseClient
+class AdopsReportScrapper::NetseerClient < AdopsReportScrapper::BaseClient
   private
 
   def login

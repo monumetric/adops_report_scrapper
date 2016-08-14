@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class AdforgeClient < BaseClient
+class AdopsReportScrapper::AdforgeClient < AdopsReportScrapper::BaseClient
   private
 
   def login

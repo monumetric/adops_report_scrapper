@@ -2,7 +2,7 @@ require 'date'
 require_relative 'base_client'
 require 'open-uri'
 
-class BrowsiClient < BaseClient
+class AdopsReportScrapper::BrowsiClient < AdopsReportScrapper::BaseClient
   private
 
   def login

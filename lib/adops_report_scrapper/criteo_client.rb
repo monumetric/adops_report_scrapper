@@ -2,7 +2,7 @@ require 'date'
 require_relative 'base_client'
 require 'httpclient'
 
-class CriteoClient < BaseClient
+class AdopsReportScrapper::CriteoClient < AdopsReportScrapper::BaseClient
   private
 
   def init_client

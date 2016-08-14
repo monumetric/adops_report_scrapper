@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class MarfeelClient < BaseClient
+class AdopsReportScrapper::MarfeelClient < AdopsReportScrapper::BaseClient
   private
 
   def login

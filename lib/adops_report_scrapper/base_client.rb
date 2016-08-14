@@ -3,7 +3,7 @@ require 'phantomjs'
 require 'capybara'
 require 'capybara/poltergeist'
 
-class BaseClient
+class AdopsReportScrapper::BaseClient
   # login: username, id, email, or api token
   # secret: password or api secret
   # options: {
@@ -20,6 +20,7 @@ class BaseClient
   # return data in array of array, first array is the headers, no total included
   def get_data(date = nil)
     @date = date if date
+    fail "specified date is not supported by this scrapper #{self.class.name}" unless date_supported?
     init_client
     login
     begin
@@ -64,7 +65,10 @@ class BaseClient
     @client.save_screenshot
   end
 
-  def support_more_than_yesterday?
+  # by default only support yesterday
+  def date_supported?(date = nil)
+    _date = date || @date
+    return true if _date == Date.today.prev_day
     false
   end
 end

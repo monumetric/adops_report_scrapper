@@ -3,7 +3,7 @@ require_relative 'base_client'
 require 'httpclient'
 require 'roo'
 
-class LiveintentClient < BaseClient
+class AdopsReportScrapper::LiveintentClient < AdopsReportScrapper::BaseClient
   private
 
   def login

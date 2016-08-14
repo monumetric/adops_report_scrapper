@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class SpringserveClient < BaseClient
+class AdopsReportScrapper::SpringserveClient < AdopsReportScrapper::BaseClient
   private
 
   def login

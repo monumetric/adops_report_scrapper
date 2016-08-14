@@ -2,7 +2,7 @@ require 'date'
 require_relative 'base_client'
 require 'nokogiri'
 
-class ConversantClient < BaseClient
+class AdopsReportScrapper::ConversantClient < AdopsReportScrapper::BaseClient
   private
 
   def login

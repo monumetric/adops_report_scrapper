@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class SonobiClient < BaseClient
+class AdopsReportScrapper::SonobiClient < AdopsReportScrapper::BaseClient
   private
 
   def login

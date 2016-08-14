@@ -1,7 +1,7 @@
 require 'date'
 require_relative 'base_client'
 
-class OpenxClient < BaseClient
+class AdopsReportScrapper::OpenxClient < AdopsReportScrapper::BaseClient
   REPORT_NAME = 'Ad Server Report for adops_report_scrapper'
 
   private
