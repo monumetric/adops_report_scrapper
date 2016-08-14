@@ -126,12 +126,16 @@ task :facebookaudience do
   save_as_csv :facebookaudience, :facebookaudience
 end
 
+def date
+  @date ||= ENV['date'].nil? ? Date.today - 1 : Date.today - ENV['date'].to_i
+end
+
 def get_yesterdays_file_path(adnetwork)
-  "tmp/#{Date.today.prev_day}/#{adnetwork}.csv"
+  "tmp/#{@date}/#{adnetwork}.csv"
 end
 
 def write_csv(adnet, data)
-  Dir.mkdir "tmp/#{Date.today.prev_day}" unless Dir.exists? "tmp/#{Date.today.prev_day}"
+  Dir.mkdir "tmp/#{@date}" unless Dir.exists? "tmp/#{@date}"
   CSV.open(get_yesterdays_file_path(adnet), 'w') do |csv|
     data.each do |row|
       csv << row
@@ -146,7 +150,6 @@ def save_as_csv(adnet, scrapper) # adnet and scrapper are both sym
   end
   puts "========== working on #{adnet}"
   cred = YAML.load_file('secret.yml')[adnet.to_s]
-  data = AdopsReportScrapper.get_scrapper(adnet, cred['login'], cred['secret'], cred['options']).get_data
-  byebug
+  data = AdopsReportScrapper.get_scrapper(adnet, cred['login'], cred['secret'], cred['options']).get_data(date)
   write_csv(adnet, data)
 end

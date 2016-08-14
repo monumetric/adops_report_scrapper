@@ -3,6 +3,12 @@ require_relative 'base_client'
 require 'open-uri'
 
 class AdopsReportScrapper::BrowsiClient < AdopsReportScrapper::BaseClient
+  def date_supported?(date = nil)
+    _date = date || @date
+    return true if _date >= Date.today - 7
+    false
+  end
+
   private
 
   def login

@@ -4,6 +4,12 @@ require_relative 'base_client'
 # gcs sometimes doesn't update data in 24 hours
 
 class AdopsReportScrapper::GcsClient < AdopsReportScrapper::BaseClient
+  def date_supported?(date = nil)
+    _date = date || @date
+    return true if _date >= Date.today - 7
+    false
+  end
+
   private
 
   def login
