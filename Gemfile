@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in ad-report-scrapper.gemspec
+# Specify your gem's dependencies in adops_report_scrapper.gemspec
 gemspec
 
 gem 'byebug'

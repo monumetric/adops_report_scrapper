@@ -2,7 +2,7 @@ require 'date'
 require_relative 'base_client'
 
 class OpenxClient < BaseClient
-  REPORT_NAME = 'Ad Server Report for ad_report_scrapper'
+  REPORT_NAME = 'Ad Server Report for adops_report_scrapper'
 
   private
 

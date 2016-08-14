@@ -1,15 +1,13 @@
-# Ad::Report::Scrapper
+# Adops_Report_Scrapper
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ad/report/scrapper`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Adops Report Scrapper is a collection of web scrappers that can automatically extract the data from your ad server, ad networks, ad exchanges, and other ad partners. It is an open source alternative to [STAQ](http://www.staq.com/). Say good-bye to spreadsheet. At the moment, this gem only focus on getting the data in. It is up to you how you would aggregate the data into your pageview & dfp/ad server data set.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ad-report-scrapper'
+gem 'adops_report_scrapper'
 ```
 
 And then execute:
@@ -18,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ad-report-scrapper
+    $ gem install adops_report_scrapper
 
 ## Usage
 
@@ -32,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/ad-report-scrapper/fork )
+1. Fork it ( https://github.com/StaymanHou/adops_report_scrapper/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

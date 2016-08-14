@@ -63,4 +63,8 @@ class BaseClient
   def before_quit_with_error
     @client.save_screenshot
   end
+
+  def support_more_than_yesterday?
+    false
+  end
 end
