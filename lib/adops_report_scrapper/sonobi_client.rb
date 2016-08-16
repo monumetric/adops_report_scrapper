@@ -26,9 +26,9 @@ class AdopsReportScrapper::SonobiClient < AdopsReportScrapper::BaseClient
 
   def request_report(country)
     is_us = country == :us
-    # all sites
     @client.find(:xpath, '//*[text()="Reports"]').click
     sleep 2
+    # all sites
     @client.find(:xpath, '//div[@name="_siteid"]').click
     sleep 2
     @client.find(:xpath, '//*[text()="Select All"]').click
