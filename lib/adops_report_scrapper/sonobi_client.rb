@@ -2,6 +2,12 @@ require 'date'
 require_relative 'base_client'
 
 class AdopsReportScrapper::SonobiClient < AdopsReportScrapper::BaseClient
+  def date_supported?(date = nil)
+    _date = date || @date
+    return true if _date >= Date.today - 2
+    false
+  end
+
   private
 
   def login
@@ -25,9 +31,18 @@ class AdopsReportScrapper::SonobiClient < AdopsReportScrapper::BaseClient
   end
 
   def request_report(country)
+    date_str = @date.strftime('%Y-%m-%d')
     is_us = country == :us
     @client.find(:xpath, '//*[text()="Reports"]').click
     sleep 2
+    # set date
+    @client.select 'Custom'
+    sleep 1
+    @client.find(:xpath, '//input[@name="_range_start_date"]').click
+    @client.find(:xpath, "//*[@date=\"#{date_str}\"]").click
+    @client.find(:xpath, '//input[@name="_range_end_date"]').click
+    @client.find(:xpath, "//*[@date=\"#{date_str}\"]").click
+
     # all sites
     @client.find(:xpath, '//div[@name="_siteid"]').click
     sleep 2
