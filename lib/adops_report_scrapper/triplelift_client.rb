@@ -32,30 +32,38 @@ class AdopsReportScrapper::TripleliftClient < AdopsReportScrapper::BaseClient
     index = -1 - @publishers.count(publisher)
     sleep 1
     @client.find_all(:xpath, "//*[text()=\"#{publisher}\"]")[index].click
-    @client.find(:xpath, '//*[text()="Reporting"]').click
-    sleep 2
+    10.times do
+      @client.find(:xpath, '//*[text()="Reporting"]').click
+      sleep 2
 
-    return if @client.find_all(:xpath, '//*[text()="No data available for selected date range"]').count > 0
+      return if @client.find_all(:xpath, '//*[text()="No data available for selected date range"]').count > 0
 
-    @client.find(:xpath, '//*[@model="startDate"]//input').set @date_str
-    sleep 1
-    @client.find(:xpath, '//*[@model="endDate"]//input').set @date_str
-    sleep 1
-    @client.find(:xpath, '//button[../../div[contains(text(),"Group by")]]').click
-    @client.find(:xpath, '//*[text()="Date and Placement"]').click
-    wait_for_spin
+      @client.find(:xpath, '//*[@model="startDate"]//input').set @date_str
+      sleep 1
+      @client.find(:xpath, '//*[@model="endDate"]//input').set @date_str
+      sleep 1
+      @client.find(:xpath, '//button[../../div[contains(text(),"Group by")]]').click
+      @client.find(:xpath, '//*[text()="Date and Placement"]').click
+      wait_for_spin
 
-    return if @client.find_all(:xpath, '//*[text()="No data available for selected date range"]').count > 0
+      return if @client.find_all(:xpath, '//*[text()="No data available for selected date range"]').count > 0
 
-    rows = @client.find_all :xpath, '//table/*/tr'
-    rows = rows.to_a
-    rows.shift
-    header = rows.shift
-    if @data.count == 0
-      n_header = header.find_css('td,th').map { |td| td.visible_text }
-      @data << n_header
+      rows = @client.find_all :xpath, '//table/*/tr'
+      rows = rows.to_a
+      rows.shift
+      header = rows.shift
+      n_data = rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
+      if n_data[-1][1].empty?
+        @client.evaluate_script 'window.location.reload()'
+        next
+      end
+      if @data.count == 0
+        n_header = header.find_css('td,th').map { |td| td.visible_text }
+        @data << n_header
+      end
+      @data += n_data
+      break
     end
-    @data += rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
   end
 
   def wait_for_spin
