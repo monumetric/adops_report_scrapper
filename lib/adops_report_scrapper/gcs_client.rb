@@ -18,6 +18,11 @@ class AdopsReportScrapper::GcsClient < AdopsReportScrapper::BaseClient
     @client.click_button 'Next'
     @client.fill_in 'Passwd', :with => @secret
     @client.click_button 'Sign in'
+    # for veirfication
+    # cc = @client.find :xpath, '//*[contains(text(),"the recovery phone")]'
+    # cc.click
+    # @client.fill_in 'Enter phone number', :with => @options[:recovery_phone]
+    # @client.click_button 'Done'
     begin
       @client.find :xpath, '//*[text()="Sites"]'
     rescue Exception => e
