@@ -18,9 +18,13 @@ class AdopsReportScrapper::TripleliftClient < AdopsReportScrapper::BaseClient
 
   def scrap
     @date_str = @date.strftime('%B %d, %Y')
-    @client.find(:xpath, '//*[@ng-if="publishers.length > 1"]').click
-    @publishers = @client.find_all(:xpath, '//*[@ng-click="selectPub(pub)"]').to_a.map { |pub_elem| pub_elem.text(:all) }
-    @client.find(:xpath, '//*[@ng-if="publishers.length > 1"]').click
+    @client.find(:xpath, '//*[text()="Reporting"]').click
+    wait_for_spin
+    @client.find(:xpath, '//button[../../div[contains(text(),"Publisher")]]').click
+    @publishers = @client.find_all(:xpath, '//*[@ng-click="selectPublisher(pub)"]').to_a.map { |pub_elem| pub_elem.text(:all) }
+    sleep 2
+    @publishers = @client.find_all(:xpath, '//*[@ng-click="selectPublisher(pub)"]').to_a.map { |pub_elem| pub_elem.text(:all) }
+    @client.find(:xpath, '//button[../../div[contains(text(),"Publisher")]]').click
     @data = []
     while @publishers.count > 0
       extract_data(@publishers.shift)
@@ -28,13 +32,14 @@ class AdopsReportScrapper::TripleliftClient < AdopsReportScrapper::BaseClient
   end
 
   def extract_data(publisher)
-    @client.find(:xpath, '//*[@ng-if="publishers.length > 1"]').click
-    index = -1 - @publishers.count(publisher)
-    sleep 1
-    @client.find_all(:xpath, "//*[text()=\"#{publisher}\"]")[index].click
     10.times do
       @client.find(:xpath, '//*[text()="Reporting"]').click
       sleep 2
+      @client.find(:xpath, '//button[../../div[contains(text(),"Publisher")]]').click
+      index = -1 - @publishers.count(publisher)
+      sleep 1
+      @client.find_all(:xpath, "//*[text()=\"#{publisher}\"]")[index].click
+      wait_for_spin
 
       return if @client.find_all(:xpath, '//*[text()="No data available for selected date range"]').count > 0
 
