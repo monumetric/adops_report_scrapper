@@ -23,7 +23,7 @@ class AdopsReportScrapper::AdtechusClient < AdopsReportScrapper::BaseClient
   def request_report
     @client.visit(@client.find(:css, '#mainwindow')[:src])
     wait_for_loading
-    report_id = @client.find(:xpath, '//tr[./td/div/span[text()="Placement fill rate report"]]')[:id]
+    report_id = @client.find_all(:xpath, '//tr[./td/div/span[text()="Placement fill rate report"]]')[0][:id]
     report_id = report_id.tr 'row_', ''
     @client.visit "https://marketplace.adtechus.com/h2/reporting/showReport.do?action=showreportpage._._.#{report_id}"
     @client.within_frame @client.find(:css, '#reportwindow') do
