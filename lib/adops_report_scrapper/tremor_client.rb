@@ -30,6 +30,7 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
     # select group by
     @client.find(:css, '#availableFieldsListSearch').click
     @client.find(:xpath, '//*[text()="Supply Domain"]').click
+    @client.find(:xpath, '//*[text()="Country"]').click
     @client.find(:xpath, '//*[text()="Ad Unit"]').click
     @client.find(:xpath, '//*[text()="Requests"]').click
     @client.find(:xpath, '//*[text()="Fills"]').click
