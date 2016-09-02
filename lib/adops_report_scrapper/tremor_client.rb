@@ -54,7 +54,6 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
   end
 
   def extract_data_from_report
-    byebug
     rows = @client.find_all :xpath, '//table/*/tr'
     @data = rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
   end
