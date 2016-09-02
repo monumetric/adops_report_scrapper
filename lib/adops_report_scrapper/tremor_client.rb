@@ -23,15 +23,22 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
 
   def request_report
     @client.find(:xpath, '//*[text()="REPORTS"]').click
-    @client.find(:xpath, '//*[text()="Hierarchical"]').click
+    @client.find(:xpath, '//*[text()="Custom"]').click
+    sleep 1
+    @client.find(:xpath, '//*[text()="New"]').click
     sleep 1
     # select group by
-    @client.find(:css, '#hierarchicalReportsGroupBys').click
-    @client.find(:xpath, '//*[text()="AdUnit"]').click
-    @client.find(:css, '#hierarchicalReportsGroupBys').click
-    @client.find(:xpath, '//*[text()="Country"]').click
+    @client.find(:css, '#availableFieldsListSearch').click
+    @client.find(:xpath, '//*[text()="Supply Domain"]').click
+    @client.find(:xpath, '//*[text()="Ad Unit"]').click
+    @client.find(:xpath, '//*[text()="Requests"]').click
+    @client.find(:xpath, '//*[text()="Fills"]').click
+    @client.find(:xpath, '//*[text()="Impressions"]').click
+    @client.find(:xpath, '//*[text()="Completions"]').click
+    @client.find(:xpath, '//*[text()="Total Net Revenue"]').click
+    @client.find(:css, '.custom-report-dropdown-glyph.glyphicon-remove').click
     # select date
-    @client.find(:css, '#hierarchicalReportsDateRange').click
+    @client.find(:css, '#customReportsDateRanges').click
     @client.find(:xpath, '//*[text()="Yesterday"]').click
     @client.click_button 'Run'
     sleep 10
@@ -46,6 +53,7 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
   end
 
   def extract_data_from_report
+    byebug
     rows = @client.find_all :xpath, '//table/*/tr'
     @data = rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
   end
