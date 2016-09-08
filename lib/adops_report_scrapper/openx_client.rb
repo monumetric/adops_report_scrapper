@@ -26,7 +26,7 @@ class AdopsReportScrapper::OpenxClient < AdopsReportScrapper::BaseClient
   end
 
   def request_report
-    @client.visit 'http://cmci-ui.openx.net/#/reports?tab=my_reports'
+    @client.visit "http://#{@account_prefix}.openx.net/#/reports?tab=my_reports"
     sleep 5
 
     begin
