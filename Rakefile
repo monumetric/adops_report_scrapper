@@ -131,6 +131,11 @@ task :adtechus do
   save_as_csv :adtechus, :adtechus
 end
 
+desc 'Collect divisiond data'
+task :divisiond do
+  save_as_csv :divisiond, :zedo
+end
+
 def date
   @date ||= ENV['date'].nil? ? Date.today - 1 : Date.today - ENV['date'].to_i
 end
