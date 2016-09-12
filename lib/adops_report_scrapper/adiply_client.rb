@@ -2,6 +2,12 @@ require 'date'
 require_relative 'base_client'
 
 class AdopsReportScrapper::AdiplyClient < AdopsReportScrapper::BaseClient
+  def date_supported?(date = nil)
+    _date = date || @date
+    return true if _date >= Date.today - 28
+    false
+  end
+
   private
 
   def login
@@ -17,7 +23,7 @@ class AdopsReportScrapper::AdiplyClient < AdopsReportScrapper::BaseClient
   end
 
   def scrap
-    zones = @client.find_all(:css, '#AppBundle_filtersForm_zone > option')
+    zones = @client.find_all(:css, '#form_zoneId > option')
     zones = zones.to_a
     zones.shift
     zones = zones.map { |zone| zone.text }
