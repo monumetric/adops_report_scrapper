@@ -6,7 +6,7 @@ class AdopsReportScrapper::AdtechusClient < AdopsReportScrapper::BaseClient
 
   def login
     @client.visit 'http://marketplace.adtechus.com'
-    @client.fill_in 'Username', :with => @login
+    @client.fill_in 'Login', :with => @login
     @client.fill_in 'Password', :with => @secret
     @client.click_button 'Sign in'
     begin
