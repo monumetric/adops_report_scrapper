@@ -23,6 +23,8 @@ class AdopsReportScrapper::LiveintentClient < AdopsReportScrapper::BaseClient
   end
 
   def request_report
+    sleep 1
+    @client.find(:xpath, '//*[text()="×"]').click if @client.find_all(:xpath, '//*[text()="×"]').count > 0
     @client.find(:xpath, '//*[text()="Analysis"]').click
     @client.find(:xpath, '//*[contains(text(),"Reporting")]').click
     @client.find(:xpath, '//*[text()="New"]').click
