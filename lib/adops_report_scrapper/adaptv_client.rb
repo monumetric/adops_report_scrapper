@@ -22,6 +22,9 @@ class AdopsReportScrapper::AdaptvClient < AdopsReportScrapper::BaseClient
   end
 
   def request_report
+    sleep 1
+    @client.find(:xpath, '//*[text()="Close"]').click if @client.find_all(:xpath, '//*[text()="Close"]').count > 0
+
     @client.find(:xpath, '//*[text()="Analytics"]').click
     @client.find(:xpath, '//*[text()="Reports"]').click
     wait_for_spin
