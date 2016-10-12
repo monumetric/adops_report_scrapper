@@ -14,7 +14,7 @@ module AdopsReportScrapper
 end
 
 require 'adops_report_scrapper/adaptv_client'
-require 'adops_report_scrapper/adforge_client'
+# require 'adops_report_scrapper/adforge_client'
 require 'adops_report_scrapper/adiply_client'
 require 'adops_report_scrapper/adsense_client'
 require 'adops_report_scrapper/adsupply_client'
@@ -35,6 +35,8 @@ require 'adops_report_scrapper/revcontent_client'
 require 'adops_report_scrapper/sonobi_client'
 require 'adops_report_scrapper/springserve_client'
 require 'adops_report_scrapper/tremor_client'
-require 'adops_report_scrapper/triplelift_client'
+# require 'adops_report_scrapper/triplelift_client'
 require 'adops_report_scrapper/adtechus_client'
 require 'adops_report_scrapper/zedo_client'
+require 'adops_report_scrapper/adtomation_client'
+require 'adops_report_scrapper/rhythmone_client'

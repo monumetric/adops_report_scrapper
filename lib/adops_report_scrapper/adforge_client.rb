@@ -22,7 +22,10 @@ class AdopsReportScrapper::AdforgeClient < AdopsReportScrapper::BaseClient
   end
 
   def request_report
-    @client.find(:xpath, '//option[text()="Yesterday"]').select_option
+    @client.within_frame @client.find(:tag, :iframe) do
+      @client.find(:xpath, '//option[text()="Yesterday"]').select_option
+      @client.click_button 'Submit'
+    end
     sleep 5
   end
 
