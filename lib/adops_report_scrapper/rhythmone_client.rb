@@ -31,7 +31,7 @@ class AdopsReportScrapper::RhythmoneClient < AdopsReportScrapper::BaseClient
     @client.find(:xpath, '//select[@ng-model="filter.group1"]').find(:xpath, 'option[contains(text(),"Placement")]').select_option
     wait_for_loading
     @client.click_button 'Generate report'
-    sleep 1
+    sleep 2
     wait_for_loading
   end
 
@@ -50,6 +50,6 @@ class AdopsReportScrapper::RhythmoneClient < AdopsReportScrapper::BaseClient
       end
       sleep 10
     end
-    sleep 2
+    sleep 10
   end
 end
