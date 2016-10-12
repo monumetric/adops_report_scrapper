@@ -6,7 +6,8 @@ class AdopsReportScrapper::RhythmoneClient < AdopsReportScrapper::BaseClient
 
   def login
     @client.visit 'https://portal.rhythmone.com/login'
-    sleep 5
+    sleep 1
+    return if @client.find_all(:xpath, '//*[contains(text(),"REPORTING")]').count > 0
     @client.fill_in 'email', :with => @login
     @client.fill_in 'password', :with => @secret
     @client.click_button 'Sign in'
