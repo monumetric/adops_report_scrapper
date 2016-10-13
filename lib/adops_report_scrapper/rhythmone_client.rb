@@ -1,56 +1,44 @@
 require 'date'
 require_relative 'base_client'
+require 'rest-client'
+require 'httpclient'
 
 class AdopsReportScrapper::RhythmoneClient < AdopsReportScrapper::BaseClient
+  def date_supported?(date = nil)
+    _date = date || @date
+    return true if _date >= Date.today - 3
+    false
+  end
+
   private
 
-  def login
-    @client.visit 'https://portal.rhythmone.com/login'
-    sleep 1
-    return if @client.find_all(:xpath, '//*[contains(text(),"REPORTING")]').count > 0
-    @client.fill_in 'email', :with => @login
-    @client.fill_in 'password', :with => @secret
-    @client.click_button 'Sign in'
+  def init_client
+    fail 'please specify rhythmone client_id' unless @options['client_id']
+    fail 'please specify rhythmone client_secret' unless @options['client_secret']
+    fail 'please specify rhythmone publisher_id' unless @options['publisher_id']
+    @client_id = @options['client_id']
+    @client_secret = @options['client_secret']
+    @publisher_id = @options['publisher_id']
+  end
 
-    begin
-      @client.find :xpath, '//*[contains(text(),"REPORTING")]'
-    rescue Exception => e
-      raise e, 'Rhythmone login error'
-    end
+  def before_quit_with_error
+  end
+
+  def login
+    response = RestClient.post 'https://api.portal.rhythmone.com/v1/users/login', client_id: @client_id, client_secret: @client_secret, grant_type: 'password', password: @secret, username: @login
+    token_obj = JSON.parse response.body
+    @access_token = token_obj['access_token']
   end
 
   def scrap
-    request_report
-    extract_data_from_report
-  end
-
-  def request_report
-    @client.find(:xpath, '//*[contains(text(),"REPORTING")]').click
-    wait_for_loading
-    @client.find(:xpath, '//option[contains(text(),"Yesterday")]').select_option
-    sleep 1
-    @client.find(:xpath, '//select[@ng-model="filter.group1"]').find(:xpath, 'option[contains(text(),"Placement")]').select_option
-    wait_for_loading
-    @client.click_button 'Generate report'
-    sleep 2
-    wait_for_loading
-  end
-
-  def extract_data_from_report
-    rows = @client.find_all :xpath, '//table/*/tr'
-    rows = rows.to_a
-    @data = rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
-  end
-
-  def wait_for_loading
-    30.times do |_i| # wait 5 min
-      begin
-        @client.find(:xpath, '//overlay-spinner/div')
-      rescue Exception => e
-        break
-      end
-      sleep 10
+    date_str = @date.strftime('%Y%m%d')
+    data_obj = nil
+    5.times do
+      response = HTTPClient.get("https://api.portal.rhythmone.com/v1/publishers/#{@publisher_id}/reports/standard_report", { ad_dimension: 0, endDate: date_str, endDateType: 1, groupBy1: 1, groupByTimePeriodType: 1, rmp_placement: 0, startDate: date_str, startDatePredefined: 0, startDateType: 1 }, { 'Authorization' => "Bearer #{@access_token}" })
+      data_obj = JSON.parse response.body
+      break if data_obj.is_a? Array
+      sleep 5
     end
-    sleep 10
+    @data = data_obj
   end
 end
