@@ -4,7 +4,7 @@ require_relative 'base_client'
 class AdopsReportScrapper::SonobiClient < AdopsReportScrapper::BaseClient
   def date_supported?(date = nil)
     _date = date || @date
-    return true if _date >= Date.today - 3
+    return true if _date >= Date.today - 2
     false
   end
 
