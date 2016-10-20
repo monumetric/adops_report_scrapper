@@ -20,6 +20,12 @@ class AdopsReportScrapper::TripleliftClient < AdopsReportScrapper::BaseClient
     @date_str = @date.strftime('%B %d, %Y')
     @client.find(:xpath, '//*[text()="Reporting"]').click
     wait_for_spin
+    # byebug
+    # @client.find(:xpath, '//button[contains(text(),"Last 7 days")]').click
+    # @client.find(:xpath, '//a[contains(text(),"Yesterday")]').click
+
+
+    
     @client.find(:xpath, '//button[../../div[contains(text(),"Publisher")]]').click
     @publishers = @client.find_all(:xpath, '//*[@ng-click="selectPublisher(pub)"]').to_a.map { |pub_elem| pub_elem.text(:all) }
     sleep 2
