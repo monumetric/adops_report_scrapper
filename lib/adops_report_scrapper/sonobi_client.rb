@@ -27,7 +27,7 @@ class AdopsReportScrapper::SonobiClient < AdopsReportScrapper::BaseClient
     @client.visit 'https://jetstream.sonobi.com/welcome/login.php'
     @client.fill_in 'user name', :with => @login
     @client.fill_in 'password', :with => @secret
-    @client.click_button 'Submit'
+    @client.click_button 'Log In'
     begin
       @client.find :xpath, '//*[text()="dashboard"]'
     rescue Exception => e
