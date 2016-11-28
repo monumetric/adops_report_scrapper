@@ -50,13 +50,15 @@ class AdopsReportScrapper::AdxClient < AdopsReportScrapper::BaseClient
 
   def scrap
     date_str = @date.strftime('%Y-%m-%d')
-    result = @client.accounts.reports.generate(
+    option = {
         :accountId => @account_id,
         :startDate => date_str,
         :endDate => date_str,
         :metric => ['AD_REQUESTS', 'AD_IMPRESSIONS', 'CLICKS', 'EARNINGS'],
-        :dimension => ['DATE', 'DFP_AD_UNITS', 'DFP_AD_UNIT_ID', 'COUNTRY_CODE', 'PLATFORM_TYPE_NAME'],
-        :alt => 'csv').execute
+        :dimension => ['DATE', 'DFP_AD_UNITS', 'DFP_AD_UNIT_ID', 'COUNTRY_CODE', 'PLATFORM_TYPE_NAME', 'PRODUCT_NAME'],
+        :alt => 'csv'
+    }
+    result = @client.accounts.reports.generate(option).execute
     @data = CSV.parse(result.body)
   end
 end
