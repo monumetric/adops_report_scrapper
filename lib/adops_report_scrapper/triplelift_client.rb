@@ -20,7 +20,7 @@ class AdopsReportScrapper::TripleliftClient < AdopsReportScrapper::BaseClient
     @date_str = @date.strftime('%B %d, %Y')
     @client.find(:xpath, '//*[text()="Reporting"]').click
     wait_for_spin
-    @client.find(:xpath, '//button[contains(text(),"Last 7 days")]').click
+    @client.find(:xpath, '//button[contains(text(),"Month to date")]').click
     @client.find(:xpath, '//a[contains(text(),"Yesterday")]').click
     sleep 1
     
