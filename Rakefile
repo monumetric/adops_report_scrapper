@@ -151,6 +151,16 @@ task :littlethings do
   save_as_csv :littlethings, :littlethings
 end
 
+desc 'Collect rubicon data'
+task :rubicon do
+  save_as_csv :rubicon, :rubicon
+end
+
+desc 'Collect undertone data'
+task :undertone do
+  save_as_csv :undertone, :undertone
+end
+
 def date
   @date ||= ENV['date'].nil? ? Date.today - 1 : Date.today - ENV['date'].to_i
 end
