@@ -34,6 +34,8 @@ class AdopsReportScrapper::LittlethingsClient < AdopsReportScrapper::BaseClient
     daterange_begin_str = (Date.today - 5).strftime('%m/%d/%Y')
     daterange_str = "#{daterange_begin_str} - #{daterange_end_str}"
     @client.visit "http://www.reportingthings.com/report/story/#{pub_id}/all/all?type=revenue&daterange=#{URI.encode(daterange_str)}"
+    utm_rows = @client.find_all(:xpath, '//*[contains(text(),"UTMs")]')
+    utm_rows.each { |utm_row| utm_row.click }
   end
 
   def extract_data_from_report
@@ -42,9 +44,24 @@ class AdopsReportScrapper::LittlethingsClient < AdopsReportScrapper::BaseClient
     rows = rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
     header = rows.shift
     @data = [header]
+    flag_found_date = false
     rows.each do |row|
-      next unless row[0] == date_str
-      @data << row
+      next unless row[0] == date_str || flag_found_date
+      case row[0]
+      when date_str
+        flag_found_date = true
+        unless row[1].include? 'UTMs'
+          @data << row
+          break
+        end
+        next
+      when ''
+        @data << row
+        @data[-1][0] = date_str
+        next
+      else
+        break
+      end
     end
   end
 end
