@@ -20,24 +20,13 @@ class AdopsReportScrapper::RubiconClient < AdopsReportScrapper::BaseClient
   private
 
   def scrap
-    tz = date.to_time.dst? ? '-07:00' : '-08:00'
     date_str = date.strftime '%F'
-    date_start_str = "#{date_str}T00:00:00#{tz}"
-    date_end_str = "#{date_str}T23:59:59#{tz}"
-    byebug
 
-    response = RestClient::Request.execute method: :get, url: 'https://api.rubiconproject.com/analytics/v1/report/', user: @login, password: @secret, account: "publisher/#{@account_id}", start: date_start_str, end: date_end_str, dimensions: ['date'], metrics: ['revenue']
+    header_params = { Accept: 'application/json', params: { start: date_str, end: date_str, columns: 'Time_Date,Site_NameShort,Country_Name,Prorated_NetworkImpressions,Prorated_Revenue', source: 'standard' } }
+    response = RestClient::Request.execute method: :get, url: "https://api.rubiconproject.com/sellers/api/reports/v1/#{@account_id}/", user: @login, password: @secret, headers: header_params
 
-    date_str = @date.strftime('%-m/%-d/%Y')
-    time_zone_id = 'Eastern Standard Time'
-
-    response = RestClient.post "https://ui.adsupply.com/PublicPortal/Publisher/#{@login}/Report/Export", SqlCommandId: '', ExportToExcel: 'False', IsOLAP: 'False', DateFilter: date_str, TimeZoneId: time_zone_id, Grouping: '1', 'DimPublisher.Value': "#{@login}~", 'DimPublisher.IsActive': 'True', 'DimSiteName.Value': '', 'DimSiteName.IsActive': 'True', 'DimCountry.Value': '', 'DimCountry.IsActive': 'True', 'DimMediaType.Value': '', 'DimMediaType.IsActive': 'True', ApiKey: @secret
-
-    data = JSON.parse response
-    header = data[0].keys
-    @data = [header]
-    @data += data.map do |datum|
-      header.map { |key| datum[key] }
-    end
+    data = JSON.parse response.body
+    @data = [data['columns']]
+    @data += data['results'].map(&:values)
   end
 end
