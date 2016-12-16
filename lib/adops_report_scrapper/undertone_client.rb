@@ -77,7 +77,6 @@ class AdopsReportScrapper::UndertoneClient < AdopsReportScrapper::BaseClient
           next if i == 0
           next unless datum[0].downcase.tr(' ','').include? "-#{l_datum['Ad Unit'].downcase.tr(' ','')}-"
           @data[i] << datum[3].tr(',','').to_i * l_datum['Sales Price'].tr('USD','').to_f / 1000
-          break
         end
       end
     end
