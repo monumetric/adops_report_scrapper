@@ -16,6 +16,7 @@ class AdopsReportScrapper::BrowsiClient < AdopsReportScrapper::BaseClient
     @client.fill_in 'Email', :with => @login
     @client.fill_in 'Password', :with => @secret
     @client.find(:xpath, '//*[text()="Login"]').click
+    sleep 10
     begin
       @client.find :css, '.ico-calendar'
     rescue Exception => e
@@ -34,7 +35,7 @@ class AdopsReportScrapper::BrowsiClient < AdopsReportScrapper::BaseClient
       endDate: (@date.to_time+86400-1).utc.strftime('%FT%T.999Z')
     }
     @client.visit "https://reports.brow.si/client/app/index.html#/report/home?dateRange=#{URI::encode(date_range_obj.to_json)}"
-    sleep 10
+    sleep 30
   end
 
   def extract_data_from_report
