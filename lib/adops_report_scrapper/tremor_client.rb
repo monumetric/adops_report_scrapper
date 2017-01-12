@@ -23,6 +23,9 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
 
   def request_report
     @client.find(:xpath, '//*[text()="REPORTS"]').click
+    sleep 1
+    @client.find(:xpath, '//*[text()="REPORTS"]').click
+    sleep 1
     @client.find(:xpath, '//*[text()="Custom"]').click
     sleep 1
     @client.find(:xpath, '//*[text()="New"]').click
