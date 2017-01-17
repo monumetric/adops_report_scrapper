@@ -18,6 +18,10 @@ Or install it yourself as:
 
     $ gem install adops_report_scrapper
 
+## Configure
+
+`cp secret.sample.yml secret.yml`. And modify the credentials in the secret.yml accordingly.
+
 ## Usage
 
 #### Example
