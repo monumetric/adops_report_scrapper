@@ -40,7 +40,7 @@ Copy the configuration file `cp secret.sample.yml secret.yml`. And modify the cr
 
 Install the dependencies `bundle install`
 
-Run the scraper `bundle exec rake <scraper_name> # e.g. bundle exec rake `. It will scrape yesterday's data, and save it as a CSV file in the `./tmp/` directory.
+Run the scraper `bundle exec rake <scraper_name> # e.g. bundle exec rake openx`. It will scrape yesterday's data, and save it as a CSV file in the `./tmp/` directory.
 
 ## Supported Scrapers
 
