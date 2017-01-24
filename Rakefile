@@ -161,6 +161,11 @@ task :undertone do
   save_as_csv :undertone, :undertone
 end
 
+desc 'Collect imonomy data'
+task :imonomy do
+  save_as_csv :imonomy, :imonomy
+end
+
 def date
   @date ||= ENV['date'].nil? ? Date.today - 1 : Date.today - ENV['date'].to_i
 end
