@@ -1,6 +1,6 @@
 # Adops_Report_Scrapper
 
-Adops Report Scrapper is a collection of web scrappers that can automatically extract the data from your ad server, ad networks, ad exchanges, and other ad partners. It is an open source alternative to [STAQ](http://www.staq.com/). Say good-bye to spreadsheet. At the moment, this gem only focus on getting the data in. It is up to you how you would aggregate the data into your pageview & dfp/ad server data set.
+Adops Report Scrapper (I meant scraper :P) is a collection of web scrapers that can automatically extract the data from your ad server, ad networks, ad exchanges, and other ad partners. It is an open source alternative to [STAQ](http://www.staq.com/). Say good-bye to spreadsheet. At the moment, this gem only focus on getting the data in. It is up to you how you would aggregate the data into your pageview & dfp/ad server data set.
 
 ## Installation
 
@@ -30,11 +30,23 @@ AdopsReportScrapper.get_scrapper(:brightroll, 'login', 'secret', {}).get_data
 # example: [["Watch", "Status", "Name", "ID", "CPM Floor", "Revenue", "eCPM", "Requests", "Responses", "Response Rate", "Impressions", "Impression Rate", "Fill Rate", "Viewable Rate", "Clicks", "CTR", "Mid Rate", "Completion Rate", "Companion Impressions", "Companion Clicks", "Companion CTR", "Created On", "Last Modified"], ["", "", "My Post RON CDN", "3863603", "$6.00", "$9.99", "$6.68", "14,951", "2,556", "17.10%", "1,496", "58.53%", "10.01%", "60.87%", "7", "0.47%", "51.80%", "45.05%", "0.00%", "0", "0.00%", "03/23/2015", "06/25/2016"], ["", "", "My Post 400x300", "3855941", "$6.00", "$0.04", "$6.07", "78", "37", "47.44%", "6", "16.22%", "7.69%", "0.00%", "0", "0.00%", "50.00%", "66.67%", "0.00%", "0", "0.00%", "12/20/2013", "06/24/2016"], ["", "", "My Post", "3860218", "$7.00", "$0.03", "$8.07", "26", "12", "46.15%", "4", "33.33%", "15.38%", "0.00%", "0", "0.00%", "125.00%", "125.00%", "0.00%", "0", "0.00%", "10/10/2014", "06/09/2016"], ["", "", "My Post 640x480", "3855297", "$7.00", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "11/25/2013", "06/28/2016"], ["", "", "My Post 300x250", "3855943", "$2.00", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "12/20/2013", "06/09/2016"], ["", "", "Mobile - iPhone web…e My Post NCT", "3856072", "$4.00", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "01/07/2014", "05/23/2016"], ["", "", "Mobile - Android we…- The My Post", "3856089", "$4.00", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "01/08/2014", "05/23/2016"], ["", "", "Mobile - iPad web -…e My Post NCT", "3856127", "$4.00", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "01/10/2014", "05/23/2016"], ["", "", "My Today 6836382", "3860216", "$7.00", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "10/10/2014", "06/29/2016"], ["", "", "My Herald", "3860220", "$6.00", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "10/10/2014", "06/09/2016"], ["", "", "My News", "3860222", "$7.00", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "10/10/2014", "06/29/2016"], ["", "", "My Blog", "3860224", "$5.00", "$0.00", "$0.00", "15", "7", "46.67%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "10/10/2014", "06/09/2016"], ["", "", "My Times 400x300", "3863146", "$7.00", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "03/02/2015", "06/29/2016"], ["", "", "My Post RON UK", "3863604", "$5.46", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "03/23/2015", "06/09/2016"], ["", "", "My Post RON AU", "3863906", "$4.43", "$0.00", "$0.00", "0", "0", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0", "0.00%", "0.00%", "0.00%", "0.00%", "0", "0.00%", "04/01/2015", "06/09/2016"]]
 ```
 
-## Supported Scrappers
+## Standalone Setup
 
-Check `lib/adops_report_scrapper` directory for implemented scrappers.
+You may also choose to run this in the standalone mode.
 
-Check `secret.sample.yml` for expected args to be passed to each scrapper.
+Clone the code `git clone https://github.com/StaymanHou/adops_report_scrapper.git`
+
+Copy the configuration file `cp secret.sample.yml secret.yml`. And modify the credentials in the secret.yml accordingly.
+
+Install the dependencies `bundle install`
+
+Run the scraper `bundle exec rake <scraper_name> # e.g. bundle exec rake openx`. It will scrape yesterday's data, and save it as a CSV file in the `./tmp/` directory.
+
+## Supported Scrapers
+
+Check `lib/adops_report_scrapper` directory for implemented scrapers.
+
+Check `secret.sample.yml` for expected args to be passed to each scraper.
 
 ## Development
 
