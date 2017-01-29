@@ -26,6 +26,7 @@ class AdopsReportScrapper::OpenxClient < AdopsReportScrapper::BaseClient
   end
 
   def request_report
+    sleep 5
     @client.visit "http://#{@account_prefix}.openx.net/#/reports?tab=my_reports"
     sleep 5
 
@@ -34,6 +35,7 @@ class AdopsReportScrapper::OpenxClient < AdopsReportScrapper::BaseClient
       @client.find(:css, '#report_frame')
     rescue Exception => e
       retry unless (tries -= 1).zero?
+      fail 'cannot find report frame'
     end
 
     create_report_if_not_exist
