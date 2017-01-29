@@ -27,7 +27,7 @@ class AdopsReportScrapper::OpenxClient < AdopsReportScrapper::BaseClient
 
   def request_report
     sleep 5
-    @client.find(:xpath, '//*[text()="Reports"]').click
+    @client.visit 'http://yahoo.com'
     sleep 5
     @client.visit "http://#{@account_prefix}.openx.net/#/reports?tab=my_reports"
     sleep 5
