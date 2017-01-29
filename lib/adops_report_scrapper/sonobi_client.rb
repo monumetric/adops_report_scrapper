@@ -37,6 +37,7 @@ class AdopsReportScrapper::SonobiClient < AdopsReportScrapper::BaseClient
     @client.driver.close_window('0')
 
     @client = HTTPClient.new
+    @client.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
     @client.cookie_manager.cookies = cookies.values.map do |cookie|
       cookie = cookie.instance_variable_get(:@attributes)
       HTTP::Cookie.new cookie
