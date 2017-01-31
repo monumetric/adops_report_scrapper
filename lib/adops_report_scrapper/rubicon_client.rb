@@ -22,11 +22,10 @@ class AdopsReportScrapper::RubiconClient < AdopsReportScrapper::BaseClient
   def scrap
     date_str = date.strftime '%F'
 
-    header_params = { Accept: 'application/json', params: { start: date_str, end: date_str, columns: 'Time_Date,Site_NameShort,Country_Name,Prorated_NetworkImpressions,Prorated_Revenue', source: 'standard' } }
-    response = RestClient::Request.execute method: :get, url: "https://api.rubiconproject.com/sellers/api/reports/v1/#{@account_id}/", user: @login, password: @secret, headers: header_params
+    response = RestClient::Request.execute method: :get, url: "https://api.rubiconproject.com/analytics/v1/report/?account=publisher/#{@account_id}&start=#{date_str}T00:00:00-07:00&end=#{date_str}T23:59:59-08:00&dimensions=date,site,country,device_type,ad_format&metrics=bid_requests,paid_impression,revenue", user: @login, password: @secret
 
     data = JSON.parse response.body
-    @data = [data['columns']]
-    @data += data['results'].map(&:values)
+    @data = [data['data']['items'].first.keys]
+    @data += data['data']['items'].reject{ |item| item['date'] != date_str }.map(&:values)
   end
 end
