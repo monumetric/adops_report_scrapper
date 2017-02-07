@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.1.53
+implement positivemobile
+
 ## 0.1.52
 fix adaptv - what the hack are they thinking by spliting the username and password into two steps?!
 

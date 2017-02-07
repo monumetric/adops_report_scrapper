@@ -1,8 +1,6 @@
 require 'date'
 require_relative 'base_client'
 
-# gcs sometimes doesn't update data in 24 hours
-
 class AdopsReportScrapper::ImonomyClient < AdopsReportScrapper::BaseClient
   def date_supported?(date = nil)
     _date = date || @date

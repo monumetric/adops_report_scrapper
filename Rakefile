@@ -166,6 +166,11 @@ task :imonomy do
   save_as_csv :imonomy, :imonomy
 end
 
+desc 'Collect positivemobile data'
+task :positivemobile do
+  save_as_csv :positivemobile, :positivemobile
+end
+
 def date
   @date ||= ENV['date'].nil? ? Date.today - 1 : Date.today - ENV['date'].to_i
 end
