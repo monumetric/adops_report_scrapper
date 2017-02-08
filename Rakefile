@@ -171,6 +171,11 @@ task :positivemobile do
   save_as_csv :positivemobile, :positivemobile
 end
 
+desc 'Collect brightcom data'
+task :brightcom do
+  save_as_csv :brightcom, :brightcom
+end
+
 def date
   @date ||= ENV['date'].nil? ? Date.today - 1 : Date.today - ENV['date'].to_i
 end

@@ -20,8 +20,6 @@ class AdopsReportScrapper::PositivemobileClient < AdopsReportScrapper::BaseClien
     rescue Exception => e
       raise e, 'Positivemobile login error'
     end
-
-
     cookies = @client.driver.cookies
     @client = HTTPClient.new
     @client.cookie_manager.cookies = cookies.values.map do |cookie|
@@ -39,9 +37,9 @@ class AdopsReportScrapper::PositivemobileClient < AdopsReportScrapper::BaseClien
     date_str = @date.strftime('%Y-%m-%d')
 
     header = {
-      Accept: 'Accept:application/json, text/plain, */*',
+      Accept: 'application/json, text/plain, */*',
       Origin: 'https://rapidv.positivemobile.com',
-      Referer: ':https//rapidv.positivemobile.com/reports',
+      Referer: 'https//rapidv.positivemobile.com/reports',
       'User-Agent': 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1',
       'Content-Type': 'application/json',
     }
