@@ -61,6 +61,7 @@ class AdopsReportScrapper::PositivemobileClient < AdopsReportScrapper::BaseClien
 
   def extract_data_from_report
     rows = JSON.parse @response.body
+    return @data = [] if rows.empty?
     keys = rows.first.keys
     @data = [keys]
     @data += rows.map(&:values)
