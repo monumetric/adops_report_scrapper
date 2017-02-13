@@ -1,3 +1,3 @@
 module AdopsReportScrapper
-  VERSION = "0.1.55"
+  VERSION = "0.1.56"
 end

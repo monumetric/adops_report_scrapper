@@ -10,7 +10,7 @@ class AdopsReportScrapper::AdtechusClient < AdopsReportScrapper::BaseClient
     @client.fill_in 'Password', :with => @secret
     @client.click_button 'Sign in'
     begin
-      @client.find :css, '#mainwindow'
+      @client.find :xpath, '//*[text()="REPORTING"]'
     rescue Exception => e
       raise e, 'Adtechus login error'
     end
@@ -21,6 +21,8 @@ class AdopsReportScrapper::AdtechusClient < AdopsReportScrapper::BaseClient
   end
 
   def request_report
+    @client.find(:xpath, '//*[text()="REPORTING"]').click
+    wait_for_loading
     @client.visit(@client.find(:css, '#mainwindow')[:src])
     wait_for_loading
     report_id = @client.find_all(:xpath, '//tr[./td/div/span[text()="Placement fill rate report"]]')[-1][:id]
