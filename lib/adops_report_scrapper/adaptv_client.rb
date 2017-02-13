@@ -9,7 +9,11 @@ class AdopsReportScrapper::AdaptvClient < AdopsReportScrapper::BaseClient
     @client.fill_in 'adaptv_email', :with => @login
     begin
       @client.fill_in 'Password', :with => @secret
+      @client.find_all(:button).first.click
+      sleep 10
+      @client.fill_in 'Password', :with => @secret
     rescue Exception => e
+      puts 'You are selected in the Beta that sucks!!!'
       @client.find_all(:button).first.click
       sleep 10
       @client.fill_in 'Password', :with => @secret
@@ -19,6 +23,7 @@ class AdopsReportScrapper::AdaptvClient < AdopsReportScrapper::BaseClient
     end
     @client.find_all(:button).first.click
     sleep 10
+    byebug
     begin
       @client.find :xpath, '//*[text()="Analytics"]'
     rescue Exception => e
