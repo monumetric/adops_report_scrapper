@@ -7,9 +7,18 @@ class AdopsReportScrapper::AdaptvClient < AdopsReportScrapper::BaseClient
   def login
     @client.visit 'https://onevideo.aol.com/#/logon'
     @client.fill_in 'adaptv_email', :with => @login
-    @client.click_button 'Sign in'
-    @client.fill_in 'Password', :with => @secret
-    @client.click_button 'Sign In'
+    begin
+      @client.fill_in 'Password', :with => @secret
+    rescue Exception => e
+      @client.find_all(:button).first.click
+      sleep 10
+      @client.fill_in 'Password', :with => @secret
+      @client.find_all(:button).first.click
+      sleep 10
+      @client.fill_in 'adaptv_email', :with => @login
+    end
+    @client.find_all(:button).first.click
+    sleep 10
     begin
       @client.find :xpath, '//*[text()="Analytics"]'
     rescue Exception => e
