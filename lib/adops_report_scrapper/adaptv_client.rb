@@ -23,7 +23,6 @@ class AdopsReportScrapper::AdaptvClient < AdopsReportScrapper::BaseClient
     end
     @client.find_all(:button).first.click
     sleep 10
-    byebug
     begin
       @client.find :xpath, '//*[text()="Analytics"]'
     rescue Exception => e
