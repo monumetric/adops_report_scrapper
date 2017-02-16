@@ -40,7 +40,7 @@ class AdopsReportScrapper::BaseClient
 
   def init_client
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, :phantomjs => Phantomjs.path)
+      Capybara::Poltergeist::Driver.new(app, :phantomjs => Phantomjs.path, :timeout => 60)
     end
     Capybara.default_max_wait_time = 10
     @client = Capybara::Session.new(:poltergeist)

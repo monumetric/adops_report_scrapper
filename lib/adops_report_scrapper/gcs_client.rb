@@ -39,7 +39,7 @@ class AdopsReportScrapper::GcsClient < AdopsReportScrapper::BaseClient
         name: site.text(:all),
         url: site[:href].sub('settings', 'report')
       }
-    end
+    end.reject { |site| site[:url].include? 'websat' }
     @data = []
     n_sites.each do |site|
       request_report site
