@@ -25,7 +25,7 @@ class AdopsReportScrapper::AppnexusClient < AdopsReportScrapper::BaseClient
     response_data = JSON.parse(response.body)
     token = response_data['response']['token']
 
-    response = RestClient.post 'http://api.appnexus.com/report', { 'report' => { 'report_type' => 'network_analytics', 'report_interval' => 'last_7_days', 'columns' => %w(day publisher_name geo_country supply_type imp_requests imps clicks total_convs revenue) } }.to_json, { content_type: :json, accept: :json, authorization: token }
+    response = RestClient.post 'http://api.appnexus.com/report', { 'report' => { 'report_type' => 'network_analytics', 'report_interval' => 'last_7_days', 'columns' => %w(day publisher_name site_name geo_country supply_type imp_requests imps clicks total_convs revenue) } }.to_json, { content_type: :json, accept: :json, authorization: token }
     response_data = JSON.parse(response.body)
     report_id = response_data['response']['report_id']
 
@@ -36,6 +36,6 @@ class AdopsReportScrapper::AppnexusClient < AdopsReportScrapper::BaseClient
     fail 'appnexus report failed' unless response_data['response']['execution_status'] == 'ready'
 
     response = RestClient.get "http://api.appnexus.com/report-download?id=#{report_id}", { authorization: token }
-    @data = CSV.parse(response.body).select { |row| row[0] == 'day' || (row[0] == date_str && row[4].to_i > 0) }
+    @data = CSV.parse(response.body).select { |row| row[0] == 'day' || (row[0] == date_str && row[5].to_i > 0) }
   end
 end
