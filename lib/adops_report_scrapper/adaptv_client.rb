@@ -6,20 +6,14 @@ class AdopsReportScrapper::AdaptvClient < AdopsReportScrapper::BaseClient
 
   def login
     @client.visit 'https://onevideo.aol.com/#/logon'
-    @client.fill_in 'adaptv_email', :with => @login
+    @client.fill_in 'Username', :with => @login
     begin
-      @client.fill_in 'Password', :with => @secret
-      @client.find_all(:button).first.click
-      sleep 10
       @client.fill_in 'Password', :with => @secret
     rescue Exception => e
       puts 'You are selected in the Beta that sucks!!!'
       @client.find_all(:button).first.click
       sleep 10
       @client.fill_in 'Password', :with => @secret
-      @client.find_all(:button).first.click
-      sleep 10
-      @client.fill_in 'adaptv_email', :with => @login
     end
     @client.find_all(:button).first.click
     sleep 10
