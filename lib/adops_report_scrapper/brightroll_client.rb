@@ -26,7 +26,7 @@ class AdopsReportScrapper::BrightrollClient < AdopsReportScrapper::BaseClient
     wait_for_loading
     # select date
     @client.find(:css, '.details-date-filter').click
-    @client.find(:xpath, '//*[text()="Yesterday"]').click
+    @client.find(:xpath, '//li[text()="Yesterday"]').click
     wait_for_loading
   end
 
