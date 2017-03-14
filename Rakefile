@@ -186,6 +186,11 @@ task :sovrn do
   save_as_csv :sovrn, :sovrn
 end
 
+desc 'Collect gumgum data'
+task :gumgum do
+  save_as_csv :gumgum, :gumgum
+end
+
 def date
   @date ||= ENV['date'].nil? ? Date.today - 1 : Date.today - ENV['date'].to_i
 end
