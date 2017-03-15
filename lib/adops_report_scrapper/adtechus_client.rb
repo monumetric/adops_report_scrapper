@@ -6,9 +6,17 @@ class AdopsReportScrapper::AdtechusClient < AdopsReportScrapper::BaseClient
 
   def login
     @client.visit 'http://marketplace.adtechus.com'
-    @client.fill_in 'Login', :with => @login
-    @client.fill_in 'Password', :with => @secret
-    @client.click_button 'Sign in'
+    @client.fill_in 'Username', :with => @login
+    begin
+      @client.fill_in 'Password', :with => @secret
+    rescue Exception => e
+      puts 'You are selected in the Beta that sucks!!!'
+      @client.find_all(:button).first.click
+      sleep 10
+      @client.fill_in 'Password', :with => @secret
+    end
+    @client.find_all(:button).first.click
+    sleep 10
     begin
       @client.find :xpath, '//*[text()="REPORTING"]'
     rescue Exception => e
@@ -21,6 +29,7 @@ class AdopsReportScrapper::AdtechusClient < AdopsReportScrapper::BaseClient
   end
 
   def request_report
+    byebug
     @client.find(:xpath, '//*[text()="REPORTING"]').click
     wait_for_loading
     @client.visit(@client.find(:css, '#mainwindow')[:src])
