@@ -29,7 +29,6 @@ class AdopsReportScrapper::AdtechusClient < AdopsReportScrapper::BaseClient
   end
 
   def request_report
-    byebug
     @client.find(:xpath, '//*[text()="REPORTING"]').click
     wait_for_loading
     @client.visit(@client.find(:css, '#mainwindow')[:src])
