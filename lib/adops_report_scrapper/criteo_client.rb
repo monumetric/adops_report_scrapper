@@ -20,6 +20,6 @@ class AdopsReportScrapper::CriteoClient < AdopsReportScrapper::BaseClient
     data = JSON.parse response.body
     header = data[0].keys
     @data = [header]
-    @data += data.map { |datum| header.map { |key| datum[key].is_a?(Hash) ? datum[key]['value'] : datum[key] } }
+    @data += data.select { |datum| datum['date'].split('T')[0] == date_str }.map { |datum| header.map { |key| datum[key].is_a?(Hash) ? datum[key]['value'] : datum[key] } }
   end
 end
