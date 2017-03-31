@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.2.4
+tremor is getting slower. give it more timeout
+
 ## 0.2.3
 fix tremor
 
