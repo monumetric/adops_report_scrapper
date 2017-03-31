@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'google-api-client', '~> 0.8.2'
   spec.add_dependency 'cheddar', '~> 1.0'
   spec.add_dependency 'roo', '~> 2.4.0'
+  spec.add_dependency 'selenium-webdriver', '~> 3.3.0'
 
   spec.add_development_dependency "bundler", "~> 1.8"
   spec.add_development_dependency "rake", "~> 10.0"
