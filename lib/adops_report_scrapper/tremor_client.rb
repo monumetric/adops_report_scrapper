@@ -13,6 +13,7 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
 
   def login
     @client.visit 'https://console.tremorhub.com/ssp'
+    @client.driver.browser.manage.window.resize_to(1366,768)
     @client.fill_in 'username', :with => @login
     @client.fill_in 'password', :with => @secret
     @client.click_button 'Sign In'
