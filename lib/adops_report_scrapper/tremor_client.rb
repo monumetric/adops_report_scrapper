@@ -64,14 +64,14 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
     @client.click_button 'Run'
     sleep 10
     flag_holding = true
-    60.times do |_i| # wait 10 min
+    60.times do |_i| # wait 20 min
       begin
         @client.find(:xpath, '//*[text()="Please Hold"]')
       rescue Exception => e
         flag_holding = false
         break
       end
-      sleep 10
+      sleep 20
     end
     fail 'Tremor report taking too long. Abort' if flag_holding
   end
