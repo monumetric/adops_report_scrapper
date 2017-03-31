@@ -68,8 +68,8 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
       begin
         @client.find(:xpath, '//*[text()="Please Hold"]')
       rescue Exception => e
-        break
         flag_holding = false
+        break
       end
       sleep 10
     end
