@@ -2,6 +2,13 @@ require 'date'
 require_relative 'base_client'
 
 class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
+  def init_client
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox)
+    end
+    @client = Capybara::Session.new(:selenium)
+  end
+
   private
 
   def login
@@ -10,8 +17,11 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
     @client.fill_in 'password', :with => @secret
     @client.click_button 'Sign In'
     begin
+      retries ||= 0
+      sleep 1
       @client.find :xpath, '//*[text()="REPORTS"]'
     rescue Exception => e
+      retry if (retries += 1) < 10
       raise e, 'Tremor login error'
     end
   end
@@ -30,6 +40,14 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
     sleep 1
     @client.find(:xpath, '//*[text()="New"]').click
     sleep 1
+
+    # select date
+    @client.find(:css, '#customReportsDateRanges').click
+    @client.find(:xpath, '//*[text()="Yesterday"]').click
+    @client.find(:css, '#timezone').click
+    sleep 1
+    @client.find_all(:xpath, '//div[text()="Eastern Standard Time"]').first.click
+
     # select group by
     @client.find(:css, '#availableFieldsListSearch').click
     @client.find(:xpath, '//*[text()="Supply Domain"]').click
@@ -41,23 +59,25 @@ class AdopsReportScrapper::TremorClient < AdopsReportScrapper::BaseClient
     @client.find(:xpath, '//*[text()="Completions"]').click
     @client.find(:xpath, '//*[text()="Total Net Revenue"]').click
     @client.find(:css, '.custom-report-dropdown-glyph.glyphicon-remove').click
-    # select date
-    @client.find(:css, '#customReportsDateRanges').click
-    @client.find(:xpath, '//*[text()="Yesterday"]').click
+    @client.execute_script('window.scrollTo(0,0)')
     @client.click_button 'Run'
     sleep 10
+    flag_holding = true
     30.times do |_i| # wait 5 min
       begin
         @client.find(:xpath, '//*[text()="Please Hold"]')
       rescue Exception => e
         break
+        flag_holding = false
       end
       sleep 10
     end
+    fail 'Tremor report taking too long. Abort' if flag_holding
   end
 
   def extract_data_from_report
-    rows = @client.find_all :xpath, '//table/*/tr'
-    @data = rows.map { |tr| tr.find_css('td,th').map { |td| td.visible_text } }
+    page = Nokogiri::HTML @client.html
+    rows = page.xpath '//table[@id="DataTables_Table_1"]/*/tr'
+    @data = rows.map { |tr| tr.css('td,th').map { |td| td.text } }
   end
 end

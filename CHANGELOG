@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.2.1
+fix tremor. introduced selenium with firefox. sorry this is dirty, but I have to. tremor somehow doesn't work with phantomjs
+
 ## 0.1.69
 fix criteo
 
