@@ -3,6 +3,12 @@ require_relative 'base_client'
 require 'httpclient'
 
 class AdopsReportScrapper::SpotxchangeClient < AdopsReportScrapper::BaseClient
+  def date_supported?(date = nil)
+    _date = date || @date
+    return true if _date < Date.today
+    false
+  end
+
   private
 
   def init_client
