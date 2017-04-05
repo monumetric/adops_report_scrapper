@@ -12,8 +12,11 @@ class AdopsReportScrapper::SpotxchangeClient < AdopsReportScrapper::BaseClient
   private
 
   def init_client
-    fail 'please specify spotxchange oauth code' unless @options['code']
-    @code = @options['code']
+    fail 'please specify spotxchange oauth client_id' unless @options['client_id']
+    @client_id = @options['client_id']
+    fail 'please specify spotxchange oauth client_secret' unless @options['client_secret']
+    @client_secret = @options['client_secret']
+    super
   end
 
   def before_quit_with_error
@@ -22,7 +25,19 @@ class AdopsReportScrapper::SpotxchangeClient < AdopsReportScrapper::BaseClient
   def scrap
     date_str = @date.strftime('%Y-%m-%d')
 
-    body = { 'client_id' => @login, 'client_secret' => @secret, 'grant_type' => 'authorization_code', 'code' => @code }
+    @client.visit "https://publisher-api.spotxchange.com/oauth2/publisher/approval.html?client_id=#{@client_id}&response_type=code&state=xyz"
+    @client.click_button 'Accept'
+
+    @client.fill_in 'Username', :with => @login
+    @client.fill_in 'Password', :with => @secret
+    @client.click_button 'Login'
+
+    @client.click_button 'Accept'
+    sleep 1
+
+    code = URI::decode_www_form(URI.parse(@client.driver.network_traffic.last.url).query).to_h['code']
+
+    body = { 'client_id' => @client_id, 'client_secret' => @client_secret, 'grant_type' => 'authorization_code', 'code' => code }
     response = HTTPClient.post 'https://publisher-api.spotxchange.com/1.0/token', body
     token = JSON.parse(response.body)['value']['data']['access_token']
 
