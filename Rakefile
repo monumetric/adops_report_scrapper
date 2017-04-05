@@ -7,7 +7,7 @@ require 'adops_report_scrapper'
 require 'byebug'
 
 desc 'Collect all data'
-task :all => [:openx, :tremor, :brightroll, :yellowhammer, :adaptv, :fourninefive, :adx, :revcontent, :gcs, :browsi, :netseer, :sonobi, :nativo, :adsupply, :marfeel, :adsense, :criteo, :triplelift, :conversant, :liveintent, :adiply, :contentad, :facebookaudience, :adtechus, :adtomation, :rhythmone, :littlethings, :appnexus, :sovrn] do # openx is the most unstable one, run it first
+task :all => [:openx, :tremor, :brightroll, :yellowhammer, :adaptv, :fourninefive, :adx, :revcontent, :gcs, :browsi, :netseer, :sonobi, :nativo, :adsupply, :marfeel, :adsense, :criteo, :triplelift, :conversant, :liveintent, :adiply, :contentad, :facebookaudience, :adtechus, :adtomation, :rhythmone, :littlethings, :appnexus, :sovrn, :spotxchange] do # openx is the most unstable one, run it first
   puts '========== You are all set'
 end
 
@@ -189,6 +189,11 @@ end
 desc 'Collect gumgum data'
 task :gumgum do
   save_as_csv :gumgum, :gumgum
+end
+
+desc 'Collect spotxchange data'
+task :spotxchange do
+  save_as_csv :spotxchange, :spotxchange
 end
 
 def date
